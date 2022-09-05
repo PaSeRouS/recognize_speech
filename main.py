@@ -1,31 +1,45 @@
-import logging
-
 from environs import Env
-from telegram import ForceReply, Update
-from telegram.ext import CommandHandler, ContextTypes, MessageHandler, filters
-from telegram.ext import Application
-
-# Enable logging
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO
-)
-logger = logging.getLogger(__name__)
+from google.cloud import dialogflow
+from telegram import Update
+from telegram.ext import CommandHandler, MessageHandler, Filters, Updater
+from telegram.ext import CallbackContext
 
 
-# Define a few command handlers. These usually take the two arguments update and
-# context.
-async def start(update: Update, context: ContextTypes) -> None:
-    """Send a message when the command /start is issued."""
+def start(update: Update, context: CallbackContext):
     user = update.effective_user
-    await update.message.reply_html(
+    update.message.reply_html(
         f"Привет, {user.mention_html()}!"
     )
 
 
-async def echo(update: Update, context: ContextTypes) -> None:
-    """Echo the user message."""
-    await update.message.reply_text(update.message.text)
+def echo(update: Update, context: CallbackContext):
+    env = Env()
+    env.read_env()
+    
+    project_id = env('PROJECT_ID')
+    text = update.message.text
+    chat_id = update.effective_chat.id
+    update.message.reply_text(
+        detect_intent_texts(
+            project_id,
+            chat_id,
+            text,
+            'ru-RU'
+        )
+    )
+
+
+def detect_intent_texts(project_id, session_id, text, language_code):
+    session_client = dialogflow.SessionsClient()
+    session = session_client.session_path(project_id, session_id)
+
+    text_input = dialogflow.TextInput(text=text, language_code=language_code)
+    query_input = dialogflow.QueryInput(text=text_input)
+    response = session_client.detect_intent(
+        request={"session": session, "query_input": query_input}
+    )
+
+    return response.query_result.fulfillment_text
 
 
 def main() -> None:
@@ -35,17 +49,13 @@ def main() -> None:
 
     tg_token = env('TG_TOKEN')
 
-    # Create the Application and pass it your bot's token.
-    application = Application.builder().token(tg_token).build()
+    updater = Updater(token=tg_token, use_context=True)
+    dispatcher = updater.dispatcher
+    dispatcher.add_handler(CommandHandler('start', start))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
 
-    # on different commands - answer in Telegram
-    application.add_handler(CommandHandler("start", start))
-
-    # on non command i.e message - echo the message on Telegram
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
-
-    # Run the bot until the user presses Ctrl-C
-    application.run_polling()
+    updater.start_polling()
+    updater.idle()
 
 
 if __name__ == "__main__":
