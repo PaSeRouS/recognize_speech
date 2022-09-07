@@ -1,8 +1,9 @@
 from environs import Env
-from google.cloud import dialogflow
 from telegram import Update
 from telegram.ext import CommandHandler, MessageHandler, Filters, Updater
 from telegram.ext import CallbackContext
+
+from dialog_flow_functions import detect_intent_texts
 
 
 def start(update: Update, context: CallbackContext):
@@ -29,19 +30,6 @@ def echo(update: Update, context: CallbackContext):
     )
 
 
-def detect_intent_texts(project_id, session_id, text, language_code):
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-
-    text_input = dialogflow.TextInput(text=text, language_code=language_code)
-    query_input = dialogflow.QueryInput(text=text_input)
-    response = session_client.detect_intent(
-        request={"session": session, "query_input": query_input}
-    )
-
-    return response.query_result.fulfillment_text
-
-
 def main():
     """Start the bot."""
     env = Env()
@@ -56,3 +44,7 @@ def main():
 
     updater.start_polling()
     updater.idle()
+
+
+if __name__ == "__main__":
+    main()
