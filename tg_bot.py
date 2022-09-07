@@ -20,13 +20,16 @@ def echo(update: Update, context: CallbackContext):
     project_id = env('PROJECT_ID')
     text = update.message.text
     chat_id = update.effective_chat.id
-    update.message.reply_text(
-        detect_intent_texts(
+
+    response = detect_intent_texts(
             project_id,
             chat_id,
             text,
             'ru-RU'
         )
+
+    update.message.reply_text(
+        response.fulfillment_text
     )
 
 

@@ -10,19 +10,19 @@ from dialog_flow_functions import detect_intent_texts
 def echo(event, vk_api, project_id):
     chat_id = random.randint(1,1000)
 
-    message = detect_intent_texts(
+    response = detect_intent_texts(
         project_id,
         chat_id,
         event.text,
         'ru-RU'
     )
 
-
-    vk_api.messages.send(
-        user_id=event.user_id,
-        message=message,
-        random_id=chat_id
-    )
+    if not response.intent.is_fallback:
+        vk_api.messages.send(
+            user_id=event.user_id,
+            message=response.fulfillment_text,
+            random_id=chat_id
+        )
 
 
 def main():
