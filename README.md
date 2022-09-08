@@ -24,7 +24,7 @@ pip install -r requirements.txt
 `LOGGER_TG_TOKEN`=Токен телеграм-бота, в котором будут отображаться ошибки в случае их появлениях в ботах   
 `LOGGER_CHAT_ID`=Ваш ID в телеграме, чтобы скрипт понимал кому слать сообщения о неправильной работе ботов   
 
-Для успешной работы скрипта вам надо создать IalogFlow и связать его с проектом Google. Вы можете обратиться к [официальному руководству](https://cloud.google.com/dialogflow/es/docs/quick/setup) для начальной настройки и создания агента. Возможно, вам также понадобится создать [сервисный аккаунт](https://cloud.google.com/dialogflow/es/docs/quick/setup#sa-create) и [получить скрытые ключи](https://cloud.google.com/dialogflow/es/docs/quick/setup#auth-env).
+Для успешной работы скрипта вам надо создать IalogFlow и связать его с проектом Google. Вы можете обратиться к [официальному руководству](https://cloud.google.com/dialogflow/es/docs/quick/setup) для начальной настройки и создания агента. Возможно, вам также понадобится [создать сервисный аккаунт](https://cloud.google.com/dialogflow/es/docs/quick/setup#sa-create) и [получить скрытые ключи](https://cloud.google.com/dialogflow/es/docs/quick/setup#auth-env).
 
 Вам нужно будет настроить агент DialogFlow, чтобы управлять потоком разговора. Следуйте инструкциям [официальной документации](https://cloud.google.com/dialogflow/es/docs/quick/build-agent), чтобы сделать это.
 
