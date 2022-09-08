@@ -17,12 +17,12 @@ pip install -r requirements.txt
 
 Внутри вашего файла `.env` вы можете указать следующие переменные:
 
-`TG_TOKEN`=Токен телеграм-бота
-`GOOGLE_APPLICATION_CREDENTIALS`=Путь к JSON-файлу, в котором лежат данные для аутентификации в Google Clod Services
-`PROJECT_ID`=Уникальный идентификатор вашего проекта в DialogFlow, созданного с помощью Google Cloud Services
-`VK_TOKEN`=Токен группы ВКонтакте, с которой будет общаться пользователь
-`LOGGER_TG_TOKEN`=Токен телеграм-бота, в котором будут отображаться ошибки в случае их появлениях в ботах
-`LOGGER_CHAT_ID`=Ваш ID в телеграме, чтобы скрипт понимал кому слать сообщения о неправильной работе ботов
+`TG_TOKEN`=Токен телеграм-бота   
+`GOOGLE_APPLICATION_CREDENTIALS`=Путь к JSON-файлу, в котором лежат данные для аутентификации в Google Clod Services   
+`PROJECT_ID`=Уникальный идентификатор вашего проекта в DialogFlow, созданного с помощью Google Cloud Services   
+`VK_TOKEN`=Токен группы ВКонтакте, с которой будет общаться пользователь   
+`LOGGER_TG_TOKEN`=Токен телеграм-бота, в котором будут отображаться ошибки в случае их появлениях в ботах   
+`LOGGER_CHAT_ID`=Ваш ID в телеграме, чтобы скрипт понимал кому слать сообщения о неправильной работе ботов   
 
 Для успешной работы скрипта вам надо создать IalogFlow и связать его с проектом Google. Вы можете обратиться к [официальному руководству](https://cloud.google.com/dialogflow/es/docs/quick/setup) для начальной настройки и создания агента. Возможно, вам также понадобится создать [сервисный аккаунт](https://cloud.google.com/dialogflow/es/docs/quick/setup#sa-create) и [получить скрытые ключи](https://cloud.google.com/dialogflow/es/docs/quick/setup#auth-env).
 
