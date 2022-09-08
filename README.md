@@ -4,6 +4,8 @@
 
 Для ответов на типичные вопросы бот пользуется [DialogFlow](https://cloud.google.com/dialogflow/docs) - платформой на Google Cloud Services.
 
+Примеры ботов-помощников: для [ВКонтакте](https://vk.com/club212629556) и для [телеграма](https://t.me/speech_paser_bot).
+
 ## Installation and Environment setup
 
 У вас должен быть установлен python3.
